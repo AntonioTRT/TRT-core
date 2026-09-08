@@ -1,0 +1,3 @@
+C:/Users/anton/STM32CubeIDE/new/trt01/Debug/CMakeFiles/trt01.dir
+C:/Users/anton/STM32CubeIDE/new/trt01/Debug/CMakeFiles/edit_cache.dir
+C:/Users/anton/STM32CubeIDE/new/trt01/Debug/CMakeFiles/rebuild_cache.dir
