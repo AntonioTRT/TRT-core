@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import csv
 import json
+import re
 import shutil
 import subprocess
 import sys
@@ -28,7 +29,12 @@ CAPABILITIES = ["SYSTEM"]
 
 SERIAL_BAUD = 115200
 
-REDIRECT_APPLICATION_SERIAL_TO_SERIAL1 = True
+REDIRECT_APPLICATION_SERIAL_TO_SERIAL1 = False
+
+TRT_HAS_STL = 0
+TRT_HAS_DYNAMIC_MEMORY = 0
+TRT_HAS_MODULES = 0
+TRT_MAX_FRAME_SIZE = 64
 
 # ============================================================
 # GENERATED VALUES
@@ -49,6 +55,8 @@ SKETCH = ROOT / "TRT-arduino" / PROJECT / f"{PROJECT}.ino"
 BUILD_ROOT = ROOT / ".trt-build" / PROJECT
 
 REGISTRY = ROOT / "build_registry.csv"
+
+PLATFORMIO_WRAPPER = BUILD_ROOT / "platformio_wrapper.py"
 
 # ============================================================
 # BUILD ID MANAGEMENT
@@ -118,12 +126,15 @@ def write_metadata(build_id: int) -> None:
     profile = f"""
 #pragma once
 
-#include <cstdint>
+#include <stdint.h>
 
 namespace trt_profile {{
 
 constexpr uint16_t kBoardId = {BOARD_ID};
 constexpr uint32_t kBuildId = {build_id};
+constexpr uint8_t kFirmwareVersionMajor = {FW_VERSION.split('.')[0]};
+constexpr uint8_t kFirmwareVersionMinor = {FW_VERSION.split('.')[1]};
+constexpr uint8_t kFirmwareVersionPatch = {FW_VERSION.split('.')[2]};
 
 constexpr unsigned long kSerialBaud =
     {SERIAL_BAUD}UL;
@@ -153,6 +164,74 @@ constexpr char kFirmwareVersion[] =
 # STAGE SOURCES
 # ============================================================
 
+def write_platformio_wrapper() -> None:
+    wrapper = """import truststore
+
+truststore.inject_into_ssl()
+
+from platformio.__main__ import main
+
+raise SystemExit(main())
+"""
+    PLATFORMIO_WRAPPER.write_text(
+        wrapper,
+        encoding="utf-8",
+    )
+
+
+def run_platformio(*arguments: str) -> None:
+    command = [
+        sys.executable,
+        str(PLATFORMIO_WRAPPER),
+        *arguments,
+    ]
+    print("\nExecuting:")
+    print(" ".join(command))
+
+    completed = subprocess.run(
+        command,
+        cwd=BUILD_ROOT,
+        capture_output=True,
+        text=True,
+    )
+    if completed.returncode == 0:
+        if completed.stdout:
+            print(completed.stdout, end="")
+        if completed.stderr:
+            print(completed.stderr, end="", file=sys.stderr)
+        return
+
+    print("\nPlatformIO failed:", file=sys.stderr)
+    print(f"Return code: {completed.returncode}", file=sys.stderr)
+    print("stdout:", file=sys.stderr)
+    print(completed.stdout or "<empty>", end="\n", file=sys.stderr)
+    print("stderr:", file=sys.stderr)
+    print(completed.stderr or "<empty>", end="\n", file=sys.stderr)
+    raise subprocess.CalledProcessError(
+        completed.returncode,
+        command,
+        output=completed.stdout,
+        stderr=completed.stderr,
+    )
+
+
+def generate_application_prototypes(source: str) -> str:
+    pattern = re.compile(
+        r"(?m)^\s*(?:[A-Za-z_]\w*\s+)*[A-Za-z_]\w*\s+([A-Za-z_]\w*)\s*"
+        r"\(([^{};]*)\)\s*(?:const\s*)?\{"
+    )
+    prototypes = []
+    for match in pattern.finditer(source):
+        name = match.group(1)
+        if name in {"setup", "loop"}:
+            continue
+        signature_start = source.rfind("\n", 0, match.start()) + 1
+        signature = source[signature_start:match.end()].rsplit("{", 1)[0].strip()
+        if "=" not in signature:
+            prototypes.append(f"{signature};")
+    return "\n".join(dict.fromkeys(prototypes))
+
+
 def stage_sources():
 
     if not SKETCH.exists():
@@ -166,74 +245,82 @@ def stage_sources():
     (BUILD_ROOT / "src" / "application").mkdir(
         parents=True
     )
+    write_platformio_wrapper()
 
     shutil.copy2(
         SKETCH,
         BUILD_ROOT / "src" / "application" / SKETCH.name,
     )
 
-    serial_redirect = (
-        "#define Serial Serial1\n"
-        if REDIRECT_APPLICATION_SERIAL_TO_SERIAL1
-        else ""
+    for source_directory in ("board", "capabilities", "dispatcher", "errors", "protocol", "services"):
+        shutil.copytree(
+            ROOT / "trt-core" / "core" / source_directory,
+            BUILD_ROOT / "src" / "core" / source_directory,
+        )
+    shutil.copytree(ROOT / "trt-core" / "transports", BUILD_ROOT / "src" / "transports")
+    shutil.copytree(ROOT / "trt-core" / "core" / "config", BUILD_ROOT / "src" / "core" / "config")
+    shutil.copytree(
+        ROOT / "boards" / "arduino" / "runtime",
+        BUILD_ROOT / "src" / "trt_runtime",
     )
 
-    serial_restore = (
-        "#undef Serial\n"
-        if REDIRECT_APPLICATION_SERIAL_TO_SERIAL1
-        else ""
-    )
+    application_serial = "Serial1" if REDIRECT_APPLICATION_SERIAL_TO_SERIAL1 else "trt_application_serial"
+    application_source = SKETCH.read_text(encoding="utf-8")
+    application_prototypes = generate_application_prototypes(application_source)
 
-    wrapper = f"""
+    wrapper = f"""#include "trt_runtime/trt_runtime.h"
+#include "trt_runtime/arduino_application_serial.h"
+
+{application_prototypes}
+
+#define Serial {application_serial}
 #define setup trt_application_setup
 #define loop trt_application_loop
 
-{serial_redirect}
 #include "application/{SKETCH.name}"
-{serial_restore}
 
+#undef Serial
 #undef setup
 #undef loop
 
-void setup()
+extern "C" void setup() __attribute__((used, externally_visible));
+extern "C" void loop() __attribute__((used, externally_visible));
+
+extern "C" void setup()
 {{
+    trt_runtime_setup();
     trt_application_setup();
 }}
 
-void loop()
+extern "C" void loop()
 {{
     trt_application_loop();
-
-    // future:
-    // TRT runtime poll
+    trt_runtime_poll();
 }}
 """
 
-    (BUILD_ROOT / "src" / "trt_wrapper.cpp").write_text(
+    (BUILD_ROOT / "src" / "main.cpp").write_text(
         wrapper,
         encoding="utf-8",
     )
 
-    subprocess.run(
-        [
-            sys.executable,
-            "-m",
-            "platformio",
-            "project",
-            "init",
-            "--board",
-            BOARD,
-            "--project-option",
-            "framework=arduino",
-            "--project-option",
-            f"upload_port={COM_PORT}",
-            "--project-option",
-            f"monitor_port={COM_PORT}",
-            "--project-option",
-            "build_flags=-std=gnu++17",
-        ],
-        cwd=BUILD_ROOT,
-        check=True,
+    run_platformio(
+        "project",
+        "init",
+        "--board",
+        BOARD,
+        "--project-option",
+        "framework=arduino",
+        "--project-option",
+        f"upload_port={COM_PORT}",
+        "--project-option",
+        f"monitor_port={COM_PORT}",
+        "--project-option",
+        f"build_flags=-std=gnu++17 -DTRT_HAS_STL={TRT_HAS_STL} -DTRT_HAS_DYNAMIC_MEMORY={TRT_HAS_DYNAMIC_MEMORY} -DTRT_HAS_MODULES={TRT_HAS_MODULES} -DTRT_MAX_FRAME_SIZE={TRT_MAX_FRAME_SIZE}",
+        "--project-option",
+        "build_unflags=-flto",
+        "--project-option",
+        f"lib_extra_dirs={ROOT / 'TRT-arduino' / 'libraries'}",
     )
 
 
@@ -264,6 +351,7 @@ def record_success(
             "board_id",
             "board_name",
             "board_type",
+            "board_revision",
             "fw_version",
             "git_commit",
             "result",
@@ -286,6 +374,7 @@ def record_success(
                 "board_id": f"{BOARD_ID:03d}",
                 "board_name": BOARD_NAME,
                 "board_type": BOARD_TYPE,
+                "board_revision": BOARD_REVISION,
                 "fw_version": FW_VERSION,
                 "git_commit": commit,
                 "result": "SUCCESS",
@@ -308,17 +397,10 @@ def main():
 
         write_metadata(build_id)
 
-        subprocess.run(
-            [
-                sys.executable,
-                "-m",
-                "platformio",
-                "run",
-                "-t",
-                "upload",
-            ],
-            cwd=BUILD_ROOT,
-            check=True,
+        run_platformio(
+            "run",
+            "-t",
+            "upload",
         )
 
     except Exception as error:

@@ -1,9 +1,13 @@
 #include "core/services/system_service.h"
 
+#include "core/config/features.h"
+
+#if TRT_HAS_STL
 #include <algorithm>
 #include <array>
 #include <iomanip>
 #include <sstream>
+#endif
 
 #include "core/board/board_context.h"
 #include "core/capabilities/capabilities.h"
@@ -14,6 +18,7 @@ namespace {
 using trt::core::dispatcher::CommandResult;
 using trt::core::errors::ErrorCode;
 
+#if TRT_HAS_STL
 bool parse_firmware_version(const std::string& value, std::array<uint8_t, 3>& version) {
     std::size_t offset = 0;
     for (std::size_t part = 0; part < version.size(); ++part) {
@@ -45,23 +50,44 @@ bool parse_firmware_version(const std::string& value, std::array<uint8_t, 3>& ve
     }
     return true;
 }
+#endif
 
 CommandResult get_version(const trt::core::protocol::Frame&, trt::core::board::BoardContext& context) {
+#if TRT_HAS_STL
     std::array<uint8_t, 3> version{};
     if (!parse_firmware_version(context.info().firmware_version, version)) {
         return {ErrorCode::kInternalError};
     }
     return {ErrorCode::kNone, static_cast<uint16_t>(trt::core::protocol::ResponseId::kData),
             {version[0], version[1], version[2]}};
+#else
+    CommandResult result;
+    result.payload[0] = context.info().firmware_version[0];
+    result.payload[1] = context.info().firmware_version[1];
+    result.payload[2] = context.info().firmware_version[2];
+    result.payload_length = 3;
+    return result;
+#endif
 }
 
 CommandResult get_id(const trt::core::protocol::Frame&, trt::core::board::BoardContext& context) {
+#if TRT_HAS_STL
     const auto& revision = context.info().revision;
     return {ErrorCode::kNone, static_cast<uint16_t>(trt::core::protocol::ResponseId::kData),
             std::vector<uint8_t>(revision.begin(), revision.end())};
+#else
+    CommandResult result;
+    const char* revision = context.info().revision;
+    while (revision[result.payload_length] != '\0' && result.payload_length < sizeof(result.payload)) {
+        result.payload[result.payload_length] = static_cast<uint8_t>(revision[result.payload_length]);
+        ++result.payload_length;
+    }
+    return result;
+#endif
 }
 
 CommandResult get_capabilities(const trt::core::protocol::Frame&, trt::core::board::BoardContext& context) {
+#if TRT_HAS_STL
     std::vector<uint16_t> identifiers;
     for (const auto capability : context.capabilities().all()) {
         if (capability == trt::core::capabilities::Capability::kSystem) {
@@ -76,14 +102,37 @@ CommandResult get_capabilities(const trt::core::protocol::Frame&, trt::core::boa
         payload.push_back(static_cast<uint8_t>(identifier & 0xFFU));
     }
     return {ErrorCode::kNone, static_cast<uint16_t>(trt::core::protocol::ResponseId::kData), std::move(payload)};
+#else
+    CommandResult result;
+    result.payload[0] = context.capabilities().supports(trt::core::capabilities::Capability::kSystem) ? 1 : 0;
+    if (result.payload[0] != 0) {
+        result.payload[1] = 0;
+        result.payload[2] = static_cast<uint8_t>(trt::core::protocol::CapabilityId::kSystem);
+        result.payload_length = 3;
+    } else {
+        result.payload_length = 1;
+    }
+    return result;
+#endif
 }
 
 CommandResult get_build_id(const trt::core::protocol::Frame&, trt::core::board::BoardContext& context) {
+#if TRT_HAS_STL
     std::ostringstream stream;
     stream << std::setfill('0') << std::setw(6) << context.info().build_id;
     const auto value = stream.str();
     return {ErrorCode::kNone, static_cast<uint16_t>(trt::core::protocol::ResponseId::kData),
             std::vector<uint8_t>(value.begin(), value.end())};
+#else
+    CommandResult result;
+    uint32_t value = context.info().build_id;
+    for (int8_t index = 5; index >= 0; --index) {
+        result.payload[index] = static_cast<uint8_t>('0' + (value % 10U));
+        value /= 10U;
+    }
+    result.payload_length = 6;
+    return result;
+#endif
 }
 
 }  // namespace

@@ -1,14 +1,14 @@
 #include <Adafruit_NeoPixel.h>
 
-#define PIN 5
+#define PIN 2
 #define NUMPIXELS 12
 
 Adafruit_NeoPixel pixels(NUMPIXELS, PIN, NEO_GRB + NEO_KHZ800);
 
 // Encoder
-#define S1 2
-#define S2 4
-#define KEY 3
+#define S1 3
+#define S2 5
+#define KEY 4
 
 int lastS1;
 int posicion = 0;

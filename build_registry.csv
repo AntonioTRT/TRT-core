@@ -1,1 +1,5 @@
-build_id,date,time,project,board_id,board_name,board_type,board_revision,fw_version,git_commit,result
+build_id,date,time,project,board_id,board_name,board_type,board_revision,fw_version,git_commit,result000001,2026-09-08,13:26:17,ledringandencoder,101,ledringandencoder,UNO,0.1.0,8625dd5,SUCCESS
+000001,2026-09-08,13:27:00,ledringandencoder,101,ledringandencoder,UNO,0.1.0,8625dd5,SUCCESS
+000002,2026-09-08,13:50:36,ledringandencoder,101,ledringandencoder,UNO,UNSPECIFIED,0.1.0,8625dd5,SUCCESS
+000003,2026-09-08,13:51:15,ledringandencoder,101,ledringandencoder,UNO,UNSPECIFIED,0.1.0,8625dd5,SUCCESS
+000004,2026-09-08,14:02:51,ledringandencoder,101,ledringandencoder,UNO,UNSPECIFIED,0.1.0,8625dd5,SUCCESS

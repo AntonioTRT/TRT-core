@@ -8,6 +8,14 @@ It is not an application, not a board-specific firmware project, and not the CLI
 
 Define one production runtime model that works for STM32, ESP32, Arduino, RP2040, simulator targets, and future TRT hardware without redesign.
 
+## Development Environment Setup
+
+See [Development Environment Setup](../docs/development-environment.md) for Python, PlatformIO, certificate-package, board-toolchain, and upload workflow requirements. See [PlatformIO SSL / Corporate Network Troubleshooting](../docs/development-environment.md#platformio-ssl--corporate-network-troubleshooting) when PlatformIO reports `HTTPClientError` or certificate verification errors on an inspected corporate network.
+
+## Portability
+
+TRT-core is one configurable codebase. The shared protocol is common across all targets, while compile-time features select static-memory or full-runtime implementation paths. See [Unified TRT-Core Portability Architecture](../docs/portability.md) for the AVR strategy and migration plan.
+
 The board remains autonomous and keeps operating:
 
 1. When no host PC is connected.

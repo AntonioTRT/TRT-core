@@ -1,10 +1,16 @@
 #pragma once
 
+#include "core/config/features.h"
+
+#if TRT_HAS_STL
 #include <memory>
-#include <unordered_map>
+#endif
 
 #include "core/board/board_info.h"
 #include "core/capabilities/capability_manager.h"
+#include "transports/transport.h"
+
+#if TRT_HAS_STL
 #include "interfaces/adc.h"
 #include "interfaces/dac.h"
 #include "interfaces/gpio.h"
@@ -12,7 +18,7 @@
 #include "interfaces/pwm.h"
 #include "interfaces/spi.h"
 #include "modules/module_manager.h"
-#include "transports/transport.h"
+#endif
 
 namespace trt {
 namespace core {
@@ -20,14 +26,19 @@ namespace board {
 
 class BoardContext {
    public:
+#if TRT_HAS_STL
     BoardContext(BoardInfo info,
                  capabilities::CapabilityManager capability_manager,
                  std::shared_ptr<transports::ITransport> transport,
                  modules::ModuleManager module_manager);
+#else
+    BoardContext(const BoardInfo& info, capabilities::CapabilityManager& capability_manager, transports::ITransport& transport);
+#endif
 
     const BoardInfo& info() const;
     capabilities::CapabilityManager& capabilities();
     const capabilities::CapabilityManager& capabilities() const;
+#if TRT_HAS_STL
     modules::ModuleManager& modules();
     const modules::ModuleManager& modules() const;
     std::shared_ptr<transports::ITransport> transport() const;
@@ -45,9 +56,11 @@ class BoardContext {
     std::shared_ptr<interfaces::IDac> dac() const;
     std::shared_ptr<interfaces::II2c> i2c() const;
     std::shared_ptr<interfaces::ISpi> spi() const;
+#endif
 
    private:
     BoardInfo info_;
+#if TRT_HAS_STL
     capabilities::CapabilityManager capability_manager_;
     std::shared_ptr<transports::ITransport> transport_;
     modules::ModuleManager module_manager_;
@@ -58,6 +71,10 @@ class BoardContext {
     std::shared_ptr<interfaces::IDac> dac_;
     std::shared_ptr<interfaces::II2c> i2c_;
     std::shared_ptr<interfaces::ISpi> spi_;
+#else
+    capabilities::CapabilityManager& capability_manager_;
+    transports::ITransport& transport_;
+#endif
 };
 
 }  // namespace board

@@ -10,12 +10,16 @@ CommandDispatcher::CommandDispatcher(CommandRegistry& registry) : registry_(regi
 
 CommandResult CommandDispatcher::dispatch(const protocol::Frame& frame, board::BoardContext& context) const {
     if (!registry_.has_handler(frame.command)) {
-        return {errors::ErrorCode::kUnsupportedCommand};
+        CommandResult result;
+        result.error = errors::ErrorCode::kUnsupportedCommand;
+        return result;
     }
 
     auto handler = registry_.get_handler(frame.command);
     if (!handler) {
-        return {errors::ErrorCode::kInternalError};
+        CommandResult result;
+        result.error = errors::ErrorCode::kInternalError;
+        return result;
     }
 
     // Capability checks happen per command handler using context.capabilities().

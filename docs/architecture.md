@@ -57,6 +57,8 @@ flowchart LR
 6. Configuration Manager is the single source of runtime policy.
 7. Capabilities are declared by board integration and checked at runtime.
 8. Every board must implement the mandatory TRT Protocol V0.1 command set and identifiers.
+9. TRT-core remains one codebase: compile-time feature flags choose static-memory or full-runtime implementation paths, and runtime capabilities advertise only compiled and supported features.
+10. Shared protocol identifiers, wire format, response IDs, and error IDs are common across all targets regardless of feature configuration.
 
 ## BoardContext Role
 

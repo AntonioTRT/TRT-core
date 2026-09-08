@@ -4,6 +4,7 @@ namespace trt {
 namespace core {
 namespace board {
 
+#if TRT_HAS_STL
 BoardContext::BoardContext(BoardInfo info,
                            capabilities::CapabilityManager capability_manager,
                            std::shared_ptr<transports::ITransport> transport,
@@ -38,6 +39,16 @@ std::shared_ptr<interfaces::IAdc> BoardContext::adc() const { return adc_; }
 std::shared_ptr<interfaces::IDac> BoardContext::dac() const { return dac_; }
 std::shared_ptr<interfaces::II2c> BoardContext::i2c() const { return i2c_; }
 std::shared_ptr<interfaces::ISpi> BoardContext::spi() const { return spi_; }
+#else
+BoardContext::BoardContext(const BoardInfo& info,
+               capabilities::CapabilityManager& capability_manager,
+               transports::ITransport& transport)
+  : info_(info), capability_manager_(capability_manager), transport_(transport) {}
+
+const BoardInfo& BoardContext::info() const { return info_; }
+capabilities::CapabilityManager& BoardContext::capabilities() { return capability_manager_; }
+const capabilities::CapabilityManager& BoardContext::capabilities() const { return capability_manager_; }
+#endif
 
 }  // namespace board
 }  // namespace core

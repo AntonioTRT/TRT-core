@@ -1,8 +1,13 @@
 #pragma once
 
-#include <cstddef>
-#include <cstdint>
+#include <stddef.h>
+#include <stdint.h>
+
+#include "core/config/features.h"
+
+#if TRT_HAS_STL
 #include <vector>
+#endif
 
 namespace trt {
 namespace core {
@@ -16,7 +21,12 @@ struct Frame {
     uint16_t seq_id = 0;
     uint16_t command = 0;
     uint16_t length = 0;
+#if TRT_HAS_STL
     std::vector<uint8_t> payload;
+#else
+    static constexpr uint16_t kMaxPayloadSize = TRT_MAX_FRAME_SIZE - 14;
+    uint8_t payload[kMaxPayloadSize]{};
+#endif
     uint16_t crc16 = 0;
 };
 
