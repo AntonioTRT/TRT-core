@@ -4,7 +4,7 @@
 #include <functional>
 #include <unordered_map>
 
-#include "core/errors/error_codes.h"
+#include "core/dispatcher/command_result.h"
 #include "core/protocol/frame.h"
 
 namespace trt {
@@ -16,7 +16,7 @@ class BoardContext;
 
 namespace dispatcher {
 
-using CommandHandler = std::function<errors::ErrorCode(const protocol::Frame&, board::BoardContext&)>;
+using CommandHandler = std::function<CommandResult(const protocol::Frame&, board::BoardContext&)>;
 
 class CommandRegistry {
    public:

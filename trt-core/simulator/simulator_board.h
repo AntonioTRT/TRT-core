@@ -27,7 +27,6 @@ class SimulatorBoard {
     std::vector<uint8_t> make_response(uint16_t seq_id, uint16_t response_id, const std::vector<uint8_t>& payload);
     std::vector<uint8_t> make_nack(uint16_t seq_id, uint16_t error_id);
     std::vector<uint8_t> make_info_payload() const;
-    void set_response(uint16_t response_id, std::vector<uint8_t> payload);
 
     void log_frame(const std::string& label, const std::vector<uint8_t>& data) const;
     void log_text(const std::string& label, const std::string& value) const;
@@ -38,9 +37,6 @@ class SimulatorBoard {
     core::dispatcher::CommandDispatcher dispatcher_;
     core::board::BoardContext context_;
     std::shared_ptr<core::logging::Logger> logger_;
-
-    uint16_t pending_response_id_ = 0;
-    std::vector<uint8_t> pending_payload_;
 };
 
 }  // namespace simulator

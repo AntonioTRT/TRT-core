@@ -123,13 +123,19 @@ int main() {
     }
 
     {
-        auto response = exchange(board, 7, 0x9999);
+        auto response = exchange(board, 7, static_cast<uint16_t>(CommandId::kBuildId));
+        assert(response.command == static_cast<uint16_t>(ResponseId::kData));
+        assert(std::string(response.payload.begin(), response.payload.end()) == "000001");
+    }
+
+    {
+        auto response = exchange(board, 8, 0x9999);
         assert(response.command == static_cast<uint16_t>(ResponseId::kNack));
         assert(response.payload == u16_to_be(static_cast<uint16_t>(ErrorId::kUnknownCommand)));
     }
 
     {
-        auto response = exchange(board, 8, 0x0007);
+        auto response = exchange(board, 9, 0x0008);
         assert(response.command == static_cast<uint16_t>(ResponseId::kNack));
         assert(response.payload == u16_to_be(static_cast<uint16_t>(ErrorId::kUnsupportedCommand)));
     }

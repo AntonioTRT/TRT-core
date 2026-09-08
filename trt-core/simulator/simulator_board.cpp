@@ -5,6 +5,7 @@
 #include <utility>
 
 #include "core/protocol/identifiers.h"
+#include "core/services/system_service.h"
 
 namespace {
 
@@ -45,7 +46,6 @@ std::string to_hex(const std::vector<uint8_t>& data) {
 namespace trt {
 namespace simulator {
 
-using core::protocol::CapabilityId;
 using core::protocol::CommandId;
 using core::protocol::ErrorId;
 using core::protocol::ResponseId;
@@ -53,11 +53,12 @@ using core::protocol::StatusCode;
 
 SimulatorBoard::SimulatorBoard(std::shared_ptr<core::logging::Logger> logger)
     : dispatcher_(registry_),
-      context_({0x0001, "SIMULATOR", "TRT_SIMULATOR", "A1", "0.1.0"},
+            context_({0x0001, "SIMULATOR", "TRT_SIMULATOR", "A1", "0.1.0", 1},
                core::capabilities::CapabilityManager{},
                std::make_shared<NullTransport>(),
                modules::ModuleManager{}),
       logger_(std::move(logger)) {
+        context_.capabilities().register_capability(core::capabilities::Capability::kSystem);
     register_handlers();
     log_text("State", "READY");
 }
@@ -84,16 +85,13 @@ std::vector<uint8_t> SimulatorBoard::process_raw_frame(const std::vector<uint8_t
         return make_nack(request.seq_id, static_cast<uint16_t>(ErrorId::kUnsupportedCommand));
     }
 
-    pending_response_id_ = static_cast<uint16_t>(ResponseId::kNack);
-    pending_payload_.clear();
-
-    const auto dispatch_error = dispatcher_.dispatch(request, context_);
-    if (dispatch_error != core::errors::ErrorCode::kNone) {
+    const auto result = dispatcher_.dispatch(request, context_);
+    if (result.error != core::errors::ErrorCode::kNone) {
         log_text("Response", "NACK ERROR_INTERNAL");
         return make_nack(request.seq_id, static_cast<uint16_t>(ErrorId::kInternal));
     }
 
-    auto tx = make_response(request.seq_id, pending_response_id_, pending_payload_);
+    auto tx = make_response(request.seq_id, result.response_id, result.payload);
     log_frame("TX Frame", tx);
     return tx;
 }
@@ -101,49 +99,33 @@ std::vector<uint8_t> SimulatorBoard::process_raw_frame(const std::vector<uint8_t
 void SimulatorBoard::register_handlers() {
     registry_.register_handler(static_cast<uint16_t>(CommandId::kPing),
                                [this](const core::protocol::Frame&, core::board::BoardContext&) {
-                                   set_response(static_cast<uint16_t>(ResponseId::kData), {'P', 'O', 'N', 'G'});
                                    log_text("Response", "DATA PONG");
-                                   return core::errors::ErrorCode::kNone;
+                                   return core::dispatcher::CommandResult{
+                                       core::errors::ErrorCode::kNone,
+                                       static_cast<uint16_t>(ResponseId::kData),
+                                       {'P', 'O', 'N', 'G'}};
                                });
 
-    registry_.register_handler(static_cast<uint16_t>(CommandId::kFwVersion),
-                               [this](const core::protocol::Frame&, core::board::BoardContext&) {
-                                   set_response(static_cast<uint16_t>(ResponseId::kData), {0x00, 0x01, 0x00});
-                                   log_text("Response", "DATA FW_VERSION 0.1.0");
-                                   return core::errors::ErrorCode::kNone;
-                               });
-
-    registry_.register_handler(static_cast<uint16_t>(CommandId::kBoardVersion),
-                               [this](const core::protocol::Frame&, core::board::BoardContext&) {
-                                   set_response(static_cast<uint16_t>(ResponseId::kData), {'A', '1'});
-                                   log_text("Response", "DATA BOARD_VERSION A1");
-                                   return core::errors::ErrorCode::kNone;
-                               });
+    core::services::SystemService system_service;
+    system_service.register_commands(registry_);
 
     registry_.register_handler(static_cast<uint16_t>(CommandId::kInfo),
                                [this](const core::protocol::Frame&, core::board::BoardContext&) {
-                                   set_response(static_cast<uint16_t>(ResponseId::kData), make_info_payload());
                                    log_text("Response", "DATA INFO");
-                                   return core::errors::ErrorCode::kNone;
+                                   return core::dispatcher::CommandResult{
+                                       core::errors::ErrorCode::kNone,
+                                       static_cast<uint16_t>(ResponseId::kData),
+                                       make_info_payload()};
                                });
 
     registry_.register_handler(static_cast<uint16_t>(CommandId::kStatus),
                                [this](const core::protocol::Frame&, core::board::BoardContext&) {
-                                   set_response(static_cast<uint16_t>(ResponseId::kData),
-                                                {static_cast<uint8_t>(StatusCode::kReady)});
                                    log_text("Response", "DATA STATUS READY");
                                    log_text("State", "READY");
-                                   return core::errors::ErrorCode::kNone;
-                               });
-
-    registry_.register_handler(static_cast<uint16_t>(CommandId::kCapabilities),
-                               [this](const core::protocol::Frame&, core::board::BoardContext&) {
-                                   std::vector<uint8_t> payload{0x01};
-                                   auto capability = u16_to_be(static_cast<uint16_t>(CapabilityId::kSystem));
-                                   payload.insert(payload.end(), capability.begin(), capability.end());
-                                   set_response(static_cast<uint16_t>(ResponseId::kData), std::move(payload));
-                                   log_text("Response", "DATA CAPABILITIES SYSTEM");
-                                   return core::errors::ErrorCode::kNone;
+                                   return core::dispatcher::CommandResult{
+                                       core::errors::ErrorCode::kNone,
+                                       static_cast<uint16_t>(ResponseId::kData),
+                                       {static_cast<uint8_t>(StatusCode::kReady)}};
                                });
 }
 
@@ -197,11 +179,6 @@ std::vector<uint8_t> SimulatorBoard::make_info_payload() const {
     append_field(0x05, std::vector<uint8_t>(serial.begin(), serial.end()));
 
     return payload;
-}
-
-void SimulatorBoard::set_response(uint16_t response_id, std::vector<uint8_t> payload) {
-    pending_response_id_ = response_id;
-    pending_payload_ = std::move(payload);
 }
 
 void SimulatorBoard::log_frame(const std::string& label, const std::vector<uint8_t>& data) const {

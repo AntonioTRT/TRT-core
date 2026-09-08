@@ -10,6 +10,7 @@ add_library(trt_core STATIC
     core/protocol/encoder.cpp
     core/dispatcher/command_registry.cpp
     core/dispatcher/command_dispatcher.cpp
+    core/services/system_service.cpp
     core/capabilities/capability_manager.cpp
     core/board/board_context.cpp
     core/board/board_info.cpp

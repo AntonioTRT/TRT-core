@@ -7,6 +7,7 @@ namespace core {
 namespace capabilities {
 
 enum class Capability : uint16_t {
+    kSystem,
     kGpio,
     kPwm,
     kAdc,

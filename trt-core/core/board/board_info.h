@@ -13,6 +13,7 @@ struct BoardInfo {
     std::string name;
     std::string revision;
     std::string firmware_version;
+    uint32_t build_id = 0;
 };
 
 }  // namespace board

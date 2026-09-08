@@ -16,6 +16,7 @@ These identifiers are mandatory and platform-independent.
 | 0x0004 | INFO | Host -> Board | Yes |
 | 0x0005 | STATUS | Host -> Board | Yes |
 | 0x0006 | CAPABILITIES | Host -> Board | Yes |
+| 0x0007 | BUILD_ID | Host -> Board | Discovery extension |
 
 Compatibility rule:
 

@@ -13,7 +13,7 @@ class CommandDispatcher {
    public:
     explicit CommandDispatcher(CommandRegistry& registry);
 
-    errors::ErrorCode dispatch(const protocol::Frame& frame, board::BoardContext& context) const;
+    CommandResult dispatch(const protocol::Frame& frame, board::BoardContext& context) const;
 
    private:
     CommandRegistry& registry_;

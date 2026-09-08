@@ -16,6 +16,7 @@ enum class CommandId : uint16_t {
     kInfo = 0x0004,
     kStatus = 0x0005,
     kCapabilities = 0x0006,
+    kBuildId = 0x0007,
 };
 
 enum class ResponseId : uint16_t {
