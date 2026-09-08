@@ -1,11 +1,14 @@
-# STM32 Board Family Placeholder
+# STM32 Board Family Integration
 
-This folder will host STM32-specific TRT-core integrations.
+This directory is the integration boundary for STM32 board variants that run TRT-core.
 
-Expected future content:
+Integration responsibilities:
 
-- Interface implementations (`IGpio`, `IPwm`, `IAdc`, `IDac`, `II2c`, `ISpi`, ...)
-- Transport adapters (for example USB CDC, UART, CAN)
-- Board bootstrap code that composes `BoardContext`
+1. Implement board interfaces consumed by TRT-core.
+2. Provide one or more ITransport adapters.
+3. Register capabilities and modules at startup.
+4. Bind configuration defaults and persistent storage.
+5. Run the non-blocking main loop defined by TRT-core execution model.
 
-No real drivers are included in TRT-core at this stage.
+TRT-core architecture remains unchanged; only STM32 adapters and board-specific wiring live here.
+

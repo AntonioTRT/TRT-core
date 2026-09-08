@@ -1,0 +1,36 @@
+board:
+  name: TRT_CORE
+  type: G474
+  revision: A1
+  firmware_version: 0.1.0
+  protocol_version: 1
+  serial_number: AUTO
+
+communication:
+  device_address: 1
+  debug_level: 1
+
+led_ring:
+  enabled: true
+  pixel_count: 16
+  brightness: 50
+  default_animation: steady
+  default_color: blue
+
+encoder:
+  enabled: true
+  reverse_direction: false
+  steps_per_detent: 4
+  acceleration_enabled: true
+
+modules:
+  enabled_modules:
+    - encoder_input
+    - button_input
+    - led_ring
+  slot_configuration: []
+
+debug:
+  debug_enabled: false
+  event_tracing: false
+  packet_tracing: false

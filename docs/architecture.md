@@ -10,73 +10,123 @@ flowchart TD
     D --> E[Hardware]
 ```
 
-## Runtime Data Flow
+## Runtime Architecture
+
+```mermaid
+flowchart TD
+    Host[Host PC] --> Proto[TRT Protocol]
+    Proto --> Transport[Transport]
+    Transport --> Core[TRT Core]
+
+    Core --> Config[Configuration Manager]
+    Core --> EventSystem[Event System]
+    Core --> CommandSystem[Command System]
+    Core --> StateMachine[State Machine]
+    Core --> Services[Services]
+
+    EventSystem --> StateMachine
+    CommandSystem --> StateMachine
+    StateMachine --> Services
+    Services --> Drivers[Drivers via Interfaces]
+```
+
+## Queue-Centric Data Flow
 
 ```mermaid
 flowchart LR
-    P[Protocol Packet] --> PR[ProtocolParser]
-    PR --> CD[CommandDispatcher]
-    CD --> CC[Capability Check]
-    CC --> BH[Board Handler via Interfaces]
-    BH --> EN[ProtocolEncoder]
-    EN --> TX[ITransport send]
+    RX[Incoming bytes] --> Parser[Parser]
+    Parser --> RXQ[RX Queue]
+    RXQ --> CQ[Command Queue]
+    CQ --> Disp[Dispatcher]
+    Disp --> SM[State Machine]
+    SM --> Svc[Services]
+    Svc --> TXQ[TX Queue]
+    TXQ --> TX[Transport send]
+
+    Svc --> EQ[Event Queue]
+    EQ --> TXQ
 ```
 
-## Core Architectural Rules
+## Architectural Rules
 
-1. TRT-core must depend only on abstract interfaces for board resources.
-2. Board families own concrete hardware access implementations.
-3. Dispatcher logic must remain board-agnostic.
-4. Capability checks are runtime and board-provided.
-5. Transport and protocol layers are decoupled.
+1. TRT-core depends on interfaces, never concrete board drivers.
+2. Runtime must remain non-blocking and autonomous.
+3. Commands request intent and state changes, not direct hardware actions.
+4. Services and state machine remain operational without host connection.
+5. Protocol and transport are decoupled by parser/encoder and ITransport contracts.
+6. Configuration Manager is the single source of runtime policy.
+7. Capabilities are declared by board integration and checked at runtime.
+8. Every board must implement the mandatory TRT Protocol V0.1 command set and identifiers.
 
-## Board Architecture
+## BoardContext Role
 
-`BoardContext` is the runtime composition root. It aggregates:
+BoardContext is the runtime composition root and service locator for core execution layers.
 
-- `BoardInfo`
-- `CapabilityManager`
-- `ModuleManager`
-- `ITransport`
-- Interface bindings (`IGpio`, `IPwm`, `IAdc`, `IDac`, `II2c`, `ISpi`, ...)
+It aggregates:
 
-Board startup flow:
+1. BoardInfo
+2. CapabilityManager
+3. ModuleManager
+4. ITransport
+5. Interface bindings (IGpio, IPwm, IAdc, IDac, II2c, ISpi, and optional interfaces)
 
-1. Construct board implementations for required interfaces.
-2. Register supported capabilities.
+Startup composition sequence:
+
+1. Construct interface implementations.
+2. Register capabilities.
 3. Register modules.
-4. Inject transport implementation.
-5. Build `BoardContext` and pass into dispatcher flow.
+4. Bind transport implementation.
+5. Initialize configuration services.
+6. Start execution loop.
+
+## Command and Event Separation
+
+Commands:
+
+- Direction: Host -> Board
+- Path: Parser -> RX Queue -> Command Queue -> Dispatcher -> State Machine -> Service
+
+Events:
+
+- Direction: Board -> Host
+- Path: Service/State -> Event Queue -> TX Queue -> Transport
+
+This separation avoids host polling ownership and preserves autonomous runtime behavior.
+
+Mandatory command set definition is maintained in docs/commands-v0.1.md.
+Wire-format and identifier authority is maintained in docs/protocol.md.
+
 
 ## Transport Architecture
 
-`ITransport` defines a transport-neutral contract:
+ITransport remains transport-agnostic with these responsibilities:
 
-- `connect()`
-- `disconnect()`
-- `send()`
-- `receive()`
+1. send()
+2. receive()
+3. connect()
+4. disconnect()
 
-Protocol logic works only with bytes and does not know whether runtime uses USB CDC, UART, CAN FD, TCP/IP, or simulator transport.
+Future adapters may target USB CDC, UART, CAN FD, TCP/IP, and simulator loopback while preserving identical core contracts.
 
 ## Module Architecture
 
-`IModule` and `ModuleDescriptor` define module metadata and discoverability:
+IModule and ModuleDescriptor define module metadata:
 
-- Module type
-- Module revision
-- Module name
-- Module capability list
+1. Module type
+2. Module revision
+3. Module name
+4. Capability list
 
-`ModuleManager` stores registered modules and exposes module inventory to command handlers and higher-level runtime services.
+ModuleManager exposes module inventory to services and state logic.
 
-## Debug Strategy (Planned)
+## Debug Architecture (Planned)
 
-Planned CLI flags map into runtime log levels:
+Future debug levels:
 
-- `-d`: general execution
-- `-dd`: TX packet
-- `-ddd`: TX + decoded packet
-- `-dddd`: TX + RX + decoded analysis
+1. -d: general execution flow
+2. -dd: transmitted packets
+3. -ddd: transmitted packets and decoded commands
+4. -dddd: TX/RX packets, decoded packets, state transitions, events, queue activity
 
-This repository documents the model but does not implement debug output behavior yet.
+The levels are architectural commitments documented here and implemented in future milestones.
+

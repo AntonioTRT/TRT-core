@@ -1,5 +1,12 @@
 # Protocol Integration
 
+## Protocol Milestone
+
+- Current official milestone: TRT Protocol V0.1.0
+- Top-level protocol specification: docs/protocol.md
+
+This milestone validates architecture, transport abstraction, identity/discovery, status reporting, and capability reporting before any peripheral-control command families are introduced.
+
 TRT protocol frame format is already defined externally and includes:
 
 - `SYNC`
@@ -13,6 +20,8 @@ TRT protocol frame format is already defined externally and includes:
 - `CRC16`
 
 TRT-core does not redefine command numbers or protocol ownership. It integrates with this protocol through parser/encoder contracts.
+
+In V0.1, command IDs are frozen and documented in docs/command-identifiers.md.
 
 ## Integration Responsibilities
 
@@ -40,6 +49,9 @@ TRT-core does not redefine command numbers or protocol ownership. It integrates 
 
 ## Constraints
 
-- No command IDs are defined in this repository.
+- Command identifiers, response identifiers, and error identifiers are frozen for V0.1 documentation phase.
 - No command business logic is implemented in this repository.
 - No transport-specific protocol behavior is hardcoded into parser/encoder contracts.
+- Mandatory command semantics for V0.1 are documented in docs/commands-v0.1.md.
+
+
