@@ -331,3 +331,101 @@ Applications are intentionally kept separate so they can be:
 - Integrated into larger projects such as TRT-Core if needed
 
 The applications themselves should remain independent from TRT-Core unless explicitly required by a future project.
+# Build and Flash
+
+This project is developed and loaded using STM32CubeIDE.
+
+## Build
+
+Open STM32CubeIDE and build the project:
+
+```text
+Project
+→ Build Project
+```
+
+or use the hammer icon in the toolbar.
+
+A successful build should complete without errors.
+
+## Flash
+
+Connect the STM32 board through the ST-LINK USB connection.
+
+To program the firmware:
+
+```text
+Run
+→ Debug As
+→ STM32 Cortex-M C/C++ Application
+```
+
+The IDE will:
+
+```text
+Build
+↓
+Connect to ST-LINK
+↓
+Erase Flash
+↓
+Program Flash
+↓
+Start Debug Session
+```
+
+Press:
+
+```text
+Resume (F8)
+```
+
+to start firmware execution.
+
+## Subsequent Updates
+
+After modifying the code:
+
+```text
+1. Build Project
+2. Run or Debug
+```
+
+STM32CubeIDE will automatically rebuild and reprogram the board.
+
+## Switching Applications
+
+Select the desired application in:
+
+```text
+Sources/app_selector.h
+```
+
+Example:
+
+```c
+#define PROGRAM2_ENABLED
+```
+
+Then:
+
+```text
+Build Project
+↓
+Run / Debug
+```
+
+The new application will be programmed into the STM32.
+
+## Verification
+
+After creating a new application:
+
+```text
+1. Enable it in app_selector.h
+2. Build
+3. Flash
+4. Verify that the expected hardware behavior is present
+```
+
+If the program behaves as expected, the application
