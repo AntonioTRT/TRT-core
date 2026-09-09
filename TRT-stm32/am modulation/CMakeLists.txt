@@ -45,14 +45,12 @@ set (RUNTIME_LIBRARY          "--specs=nano.specs")
 set (RUNTIME_LIBRARY_SYSCALLS "--specs=nosys.specs")
 
 
+file (GLOB PROJECT_SOURCES_C CONFIGURE_DEPENDS "Sources/*.c")
+
 set (PROJECT_SOURCES
-	# LIST SOURCE FILES HERE
+	# Sources/*.c is discovered automatically; add new programs there, no edits needed here.
 	Startup/startup_stm32l073rztx.s
-	Sources/main.c
-	Sources/syscalls.c
-	Sources/sysmem.c
-
-
+	${PROJECT_SOURCES_C}
 	)
 
 set (PROJECT_DEFINES
