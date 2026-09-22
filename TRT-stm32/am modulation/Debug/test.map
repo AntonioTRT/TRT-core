@@ -36,10 +36,6 @@ C:/ST/STM32CubeIDE_2.2.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externalt
                               C:/ST/STM32CubeIDE_2.2.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp\libc_nano.a(libc_a-findfp.o) (_fflush_r)
 C:/ST/STM32CubeIDE_2.2.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp\libc_nano.a(libc_a-sbrkr.o)
                               C:/ST/STM32CubeIDE_2.2.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp\libc_nano.a(libc_a-mallocr.o) (_sbrk_r)
-C:/ST/STM32CubeIDE_2.2.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v6-m/nofp\libgcc.a(_divsi3.o)
-                              CMakeFiles/trt01.dir/Sources/main.c.obj (__aeabi_idivmod)
-C:/ST/STM32CubeIDE_2.2.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v6-m/nofp\libgcc.a(_dvmd_tls.o)
-                              C:/ST/STM32CubeIDE_2.2.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v6-m/nofp\libgcc.a(_divsi3.o) (__aeabi_idiv0)
 C:/ST/STM32CubeIDE_2.2.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp\libg_nano.a(libc_a-errno.o)
                               CMakeFiles/trt01.dir/Sources/syscalls.c.obj (__errno)
 
@@ -272,6 +268,24 @@ Discarded input sections
  .bss           0x00000000        0x0 CMakeFiles/trt01.dir/Startup/startup_stm32l073rztx.s.obj
  .data          0x00000000        0x0 CMakeFiles/trt01.dir/Sources/main.c.obj
  .bss           0x00000000        0x0 CMakeFiles/trt01.dir/Sources/main.c.obj
+ .text          0x00000000        0x0 CMakeFiles/trt01.dir/Sources/program1.c.obj
+ .data          0x00000000        0x0 CMakeFiles/trt01.dir/Sources/program1.c.obj
+ .bss           0x00000000        0x0 CMakeFiles/trt01.dir/Sources/program1.c.obj
+ .debug_line    0x00000000        0x0 CMakeFiles/trt01.dir/Sources/program1.c.obj
+ .debug_str     0x00000000       0xd0 CMakeFiles/trt01.dir/Sources/program1.c.obj
+ .comment       0x00000000       0x44 CMakeFiles/trt01.dir/Sources/program1.c.obj
+ .ARM.attributes
+                0x00000000       0x2c CMakeFiles/trt01.dir/Sources/program1.c.obj
+ .text          0x00000000        0x0 CMakeFiles/trt01.dir/Sources/program2.c.obj
+ .data          0x00000000        0x0 CMakeFiles/trt01.dir/Sources/program2.c.obj
+ .bss           0x00000000        0x0 CMakeFiles/trt01.dir/Sources/program2.c.obj
+ .debug_line    0x00000000        0x0 CMakeFiles/trt01.dir/Sources/program2.c.obj
+ .debug_str     0x00000000       0xd0 CMakeFiles/trt01.dir/Sources/program2.c.obj
+ .comment       0x00000000       0x44 CMakeFiles/trt01.dir/Sources/program2.c.obj
+ .ARM.attributes
+                0x00000000       0x2c CMakeFiles/trt01.dir/Sources/program2.c.obj
+ .data          0x00000000        0x0 CMakeFiles/trt01.dir/Sources/program3.c.obj
+ .bss           0x00000000        0x0 CMakeFiles/trt01.dir/Sources/program3.c.obj
  .text          0x00000000      0x1fc CMakeFiles/trt01.dir/Sources/syscalls.c.obj
  .data          0x00000000        0x4 CMakeFiles/trt01.dir/Sources/syscalls.c.obj
  .bss           0x00000000        0x4 CMakeFiles/trt01.dir/Sources/syscalls.c.obj
@@ -279,8 +293,8 @@ Discarded input sections
  .debug_abbrev  0x00000000      0x1b4 CMakeFiles/trt01.dir/Sources/syscalls.c.obj
  .debug_aranges
                 0x00000000       0x20 CMakeFiles/trt01.dir/Sources/syscalls.c.obj
- .debug_line    0x00000000      0x390 CMakeFiles/trt01.dir/Sources/syscalls.c.obj
- .debug_str     0x00000000      0x3c2 CMakeFiles/trt01.dir/Sources/syscalls.c.obj
+ .debug_line    0x00000000      0x394 CMakeFiles/trt01.dir/Sources/syscalls.c.obj
+ .debug_str     0x00000000      0x3ca CMakeFiles/trt01.dir/Sources/syscalls.c.obj
  .comment       0x00000000       0x44 CMakeFiles/trt01.dir/Sources/syscalls.c.obj
  .debug_frame   0x00000000      0x244 CMakeFiles/trt01.dir/Sources/syscalls.c.obj
  .ARM.attributes
@@ -292,16 +306,12 @@ Discarded input sections
  .debug_abbrev  0x00000000       0xba CMakeFiles/trt01.dir/Sources/sysmem.c.obj
  .debug_aranges
                 0x00000000       0x20 CMakeFiles/trt01.dir/Sources/sysmem.c.obj
- .debug_line    0x00000000      0x352 CMakeFiles/trt01.dir/Sources/sysmem.c.obj
- .debug_str     0x00000000      0x1ee CMakeFiles/trt01.dir/Sources/sysmem.c.obj
+ .debug_line    0x00000000      0x356 CMakeFiles/trt01.dir/Sources/sysmem.c.obj
+ .debug_str     0x00000000      0x1f6 CMakeFiles/trt01.dir/Sources/sysmem.c.obj
  .comment       0x00000000       0x44 CMakeFiles/trt01.dir/Sources/sysmem.c.obj
  .debug_frame   0x00000000       0x30 CMakeFiles/trt01.dir/Sources/sysmem.c.obj
  .ARM.attributes
                 0x00000000       0x2c CMakeFiles/trt01.dir/Sources/sysmem.c.obj
- .data          0x00000000        0x0 C:/ST/STM32CubeIDE_2.2.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v6-m/nofp\libgcc.a(_divsi3.o)
- .bss           0x00000000        0x0 C:/ST/STM32CubeIDE_2.2.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v6-m/nofp\libgcc.a(_divsi3.o)
- .data          0x00000000        0x0 C:/ST/STM32CubeIDE_2.2.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v6-m/nofp\libgcc.a(_dvmd_tls.o)
- .bss           0x00000000        0x0 C:/ST/STM32CubeIDE_2.2.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v6-m/nofp\libgcc.a(_dvmd_tls.o)
  .text          0x00000000        0x0 C:/ST/STM32CubeIDE_2.2.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp\libg_nano.a(libc_a-errno.o)
  .data          0x00000000        0x0 C:/ST/STM32CubeIDE_2.2.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp\libg_nano.a(libc_a-errno.o)
  .bss           0x00000000        0x0 C:/ST/STM32CubeIDE_2.2.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp\libg_nano.a(libc_a-errno.o)
@@ -347,6 +357,9 @@ LOAD C:/ST/STM32CubeIDE_2.2.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.exte
 END GROUP
 LOAD CMakeFiles/trt01.dir/Startup/startup_stm32l073rztx.s.obj
 LOAD CMakeFiles/trt01.dir/Sources/main.c.obj
+LOAD CMakeFiles/trt01.dir/Sources/program1.c.obj
+LOAD CMakeFiles/trt01.dir/Sources/program2.c.obj
+LOAD CMakeFiles/trt01.dir/Sources/program3.c.obj
 LOAD CMakeFiles/trt01.dir/Sources/syscalls.c.obj
 LOAD CMakeFiles/trt01.dir/Sources/sysmem.c.obj
 START GROUP
@@ -377,141 +390,137 @@ LOAD C:/ST/STM32CubeIDE_2.2.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.exte
                 0x08000000                g_pfnVectors
                 0x080000c0                        . = ALIGN (0x4)
 
-.text           0x080000c0      0x52c
+.text           0x080000c0      0x120
                 0x080000c0                        . = ALIGN (0x4)
  *(.text)
  .text          0x080000c0       0x48 C:/ST/STM32CubeIDE_2.2.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v6-m/nofp/crtbegin.o
- .text          0x08000108      0x258 CMakeFiles/trt01.dir/Sources/main.c.obj
-                0x08000108                delay_us
-                0x0800012e                main
- .text          0x08000360      0x1d4 C:/ST/STM32CubeIDE_2.2.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v6-m/nofp\libgcc.a(_divsi3.o)
-                0x08000360                __divsi3
-                0x08000360                __aeabi_idiv
-                0x0800052c                __aeabi_idivmod
- .text          0x08000534        0x4 C:/ST/STM32CubeIDE_2.2.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v6-m/nofp\libgcc.a(_dvmd_tls.o)
-                0x08000534                __aeabi_idiv0
-                0x08000534                __aeabi_ldiv0
+ .text          0x08000108        0xe CMakeFiles/trt01.dir/Sources/main.c.obj
+                0x08000108                main
+ .text          0x08000116       0x14 CMakeFiles/trt01.dir/Sources/program3.c.obj
+                0x08000116                app_init
+                0x08000120                app_loop
  *(.text*)
+ *fill*         0x0800012a        0x2 
  .text.__libc_init_array
-                0x08000538       0x48 C:/ST/STM32CubeIDE_2.2.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp\libc_nano.a(libc_a-init.o)
-                0x08000538                __libc_init_array
+                0x0800012c       0x48 C:/ST/STM32CubeIDE_2.2.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp\libc_nano.a(libc_a-init.o)
+                0x0800012c                __libc_init_array
  .text.Reset_Handler
-                0x08000580       0x50 CMakeFiles/trt01.dir/Startup/startup_stm32l073rztx.s.obj
-                0x08000580                Reset_Handler
+                0x08000174       0x50 CMakeFiles/trt01.dir/Startup/startup_stm32l073rztx.s.obj
+                0x08000174                Reset_Handler
  .text.Default_Handler
-                0x080005d0        0x2 CMakeFiles/trt01.dir/Startup/startup_stm32l073rztx.s.obj
-                0x080005d0                TSC_IRQHandler
-                0x080005d0                HardFault_Handler
-                0x080005d0                SysTick_Handler
-                0x080005d0                PVD_IRQHandler
-                0x080005d0                PendSV_Handler
-                0x080005d0                NMI_Handler
-                0x080005d0                I2C1_IRQHandler
-                0x080005d0                USART4_USART5_IRQHandler
-                0x080005d0                SPI1_IRQHandler
-                0x080005d0                TIM6_DAC_IRQHandler
-                0x080005d0                EXTI2_3_IRQHandler
-                0x080005d0                I2C2_IRQHandler
-                0x080005d0                RTC_IRQHandler
-                0x080005d0                LCD_IRQHandler
-                0x080005d0                TIM3_IRQHandler
-                0x080005d0                EXTI4_15_IRQHandler
-                0x080005d0                RCC_IRQHandler
-                0x080005d0                DMA1_Channel1_IRQHandler
-                0x080005d0                Default_Handler
-                0x080005d0                TIM22_IRQHandler
-                0x080005d0                TIM7_IRQHandler
-                0x080005d0                EXTI0_1_IRQHandler
-                0x080005d0                USB_IRQHandler
-                0x080005d0                I2C3_IRQHandler
-                0x080005d0                SPI2_IRQHandler
-                0x080005d0                SVC_Handler
-                0x080005d0                TIM21_IRQHandler
-                0x080005d0                WWDG_IRQHandler
-                0x080005d0                TIM2_IRQHandler
-                0x080005d0                DMA1_Channel2_3_IRQHandler
-                0x080005d0                ADC_COMP_IRQHandler
-                0x080005d0                USART2_IRQHandler
-                0x080005d0                DMA1_Channel4_7_IRQHandler
-                0x080005d0                FLASH_IRQHandler
-                0x080005d0                USART1_IRQHandler
-                0x080005d0                AES_RNG_LPUART1_IRQHandler
-                0x080005d0                LPTIM1_IRQHandler
+                0x080001c4        0x2 CMakeFiles/trt01.dir/Startup/startup_stm32l073rztx.s.obj
+                0x080001c4                TSC_IRQHandler
+                0x080001c4                HardFault_Handler
+                0x080001c4                SysTick_Handler
+                0x080001c4                PVD_IRQHandler
+                0x080001c4                PendSV_Handler
+                0x080001c4                NMI_Handler
+                0x080001c4                I2C1_IRQHandler
+                0x080001c4                USART4_USART5_IRQHandler
+                0x080001c4                SPI1_IRQHandler
+                0x080001c4                TIM6_DAC_IRQHandler
+                0x080001c4                EXTI2_3_IRQHandler
+                0x080001c4                I2C2_IRQHandler
+                0x080001c4                RTC_IRQHandler
+                0x080001c4                LCD_IRQHandler
+                0x080001c4                TIM3_IRQHandler
+                0x080001c4                EXTI4_15_IRQHandler
+                0x080001c4                RCC_IRQHandler
+                0x080001c4                DMA1_Channel1_IRQHandler
+                0x080001c4                Default_Handler
+                0x080001c4                TIM22_IRQHandler
+                0x080001c4                TIM7_IRQHandler
+                0x080001c4                EXTI0_1_IRQHandler
+                0x080001c4                USB_IRQHandler
+                0x080001c4                I2C3_IRQHandler
+                0x080001c4                SPI2_IRQHandler
+                0x080001c4                SVC_Handler
+                0x080001c4                TIM21_IRQHandler
+                0x080001c4                WWDG_IRQHandler
+                0x080001c4                TIM2_IRQHandler
+                0x080001c4                DMA1_Channel2_3_IRQHandler
+                0x080001c4                ADC_COMP_IRQHandler
+                0x080001c4                USART2_IRQHandler
+                0x080001c4                DMA1_Channel4_7_IRQHandler
+                0x080001c4                FLASH_IRQHandler
+                0x080001c4                USART1_IRQHandler
+                0x080001c4                AES_RNG_LPUART1_IRQHandler
+                0x080001c4                LPTIM1_IRQHandler
  *(.glue_7)
- .glue_7        0x080005d2        0x0 linker stubs
+ .glue_7        0x080001c6        0x0 linker stubs
  *(.glue_7t)
- .glue_7t       0x080005d2        0x0 linker stubs
+ .glue_7t       0x080001c6        0x0 linker stubs
  *(.eh_frame)
- *fill*         0x080005d2        0x2 
- .eh_frame      0x080005d4        0x0 C:/ST/STM32CubeIDE_2.2.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v6-m/nofp/crtbegin.o
+ *fill*         0x080001c6        0x2 
+ .eh_frame      0x080001c8        0x0 C:/ST/STM32CubeIDE_2.2.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v6-m/nofp/crtbegin.o
  *(.init)
- .init          0x080005d4        0x4 C:/ST/STM32CubeIDE_2.2.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v6-m/nofp/crti.o
-                0x080005d4                _init
- .init          0x080005d8        0x8 C:/ST/STM32CubeIDE_2.2.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v6-m/nofp/crtn.o
+ .init          0x080001c8        0x4 C:/ST/STM32CubeIDE_2.2.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v6-m/nofp/crti.o
+                0x080001c8                _init
+ .init          0x080001cc        0x8 C:/ST/STM32CubeIDE_2.2.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v6-m/nofp/crtn.o
  *(.fini)
- .fini          0x080005e0        0x4 C:/ST/STM32CubeIDE_2.2.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v6-m/nofp/crti.o
-                0x080005e0                _fini
- .fini          0x080005e4        0x8 C:/ST/STM32CubeIDE_2.2.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v6-m/nofp/crtn.o
-                0x080005ec                        . = ALIGN (0x4)
-                0x080005ec                        _etext = .
+ .fini          0x080001d4        0x4 C:/ST/STM32CubeIDE_2.2.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v6-m/nofp/crti.o
+                0x080001d4                _fini
+ .fini          0x080001d8        0x8 C:/ST/STM32CubeIDE_2.2.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v6-m/nofp/crtn.o
+                0x080001e0                        . = ALIGN (0x4)
+                0x080001e0                        _etext = .
 
-.vfp11_veneer   0x080005ec        0x0
- .vfp11_veneer  0x080005ec        0x0 linker stubs
+.vfp11_veneer   0x080001e0        0x0
+ .vfp11_veneer  0x080001e0        0x0 linker stubs
 
-.v4_bx          0x080005ec        0x0
- .v4_bx         0x080005ec        0x0 linker stubs
+.v4_bx          0x080001e0        0x0
+ .v4_bx         0x080001e0        0x0 linker stubs
 
-.iplt           0x080005ec        0x0
- .iplt          0x080005ec        0x0 C:/ST/STM32CubeIDE_2.2.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v6-m/nofp/crtbegin.o
+.iplt           0x080001e0        0x0
+ .iplt          0x080001e0        0x0 C:/ST/STM32CubeIDE_2.2.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v6-m/nofp/crtbegin.o
 
-.rodata         0x080005ec        0x0
-                0x080005ec                        . = ALIGN (0x4)
+.rodata         0x080001e0        0x0
+                0x080001e0                        . = ALIGN (0x4)
  *(.rodata)
  *(.rodata*)
-                0x080005ec                        . = ALIGN (0x4)
+                0x080001e0                        . = ALIGN (0x4)
 
-.ARM.extab      0x080005ec        0x0
-                0x080005ec                        . = ALIGN (0x4)
+.ARM.extab      0x080001e0        0x0
+                0x080001e0                        . = ALIGN (0x4)
  *(.ARM.extab* .gnu.linkonce.armextab.*)
-                0x080005ec                        . = ALIGN (0x4)
+                0x080001e0                        . = ALIGN (0x4)
 
-.ARM            0x080005ec        0x0
-                0x080005ec                        . = ALIGN (0x4)
-                0x080005ec                        __exidx_start = .
+.ARM            0x080001e0        0x0
+                0x080001e0                        . = ALIGN (0x4)
+                0x080001e0                        __exidx_start = .
  *(.ARM.exidx*)
-                0x080005ec                        __exidx_end = .
-                0x080005ec                        . = ALIGN (0x4)
+                0x080001e0                        __exidx_end = .
+                0x080001e0                        . = ALIGN (0x4)
 
-.preinit_array  0x080005ec        0x0
-                0x080005ec                        . = ALIGN (0x4)
-                0x080005ec                        PROVIDE (__preinit_array_start = .)
+.preinit_array  0x080001e0        0x0
+                0x080001e0                        . = ALIGN (0x4)
+                0x080001e0                        PROVIDE (__preinit_array_start = .)
  *(.preinit_array*)
-                0x080005ec                        PROVIDE (__preinit_array_end = .)
-                0x080005ec                        . = ALIGN (0x4)
+                0x080001e0                        PROVIDE (__preinit_array_end = .)
+                0x080001e0                        . = ALIGN (0x4)
 
-.init_array     0x080005ec        0x4
-                0x080005ec                        . = ALIGN (0x4)
-                0x080005ec                        PROVIDE (__init_array_start = .)
+.init_array     0x080001e0        0x4
+                0x080001e0                        . = ALIGN (0x4)
+                0x080001e0                        PROVIDE (__init_array_start = .)
  *(SORT_BY_NAME(.init_array.*))
  *(.init_array*)
- .init_array    0x080005ec        0x4 C:/ST/STM32CubeIDE_2.2.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v6-m/nofp/crtbegin.o
-                0x080005f0                        PROVIDE (__init_array_end = .)
-                0x080005f0                        . = ALIGN (0x4)
+ .init_array    0x080001e0        0x4 C:/ST/STM32CubeIDE_2.2.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v6-m/nofp/crtbegin.o
+                0x080001e4                        PROVIDE (__init_array_end = .)
+                0x080001e4                        . = ALIGN (0x4)
 
-.fini_array     0x080005f0        0x4
-                0x080005f0                        . = ALIGN (0x4)
+.fini_array     0x080001e4        0x4
+                0x080001e4                        . = ALIGN (0x4)
                 [!provide]                        PROVIDE (__fini_array_start = .)
  *(SORT_BY_NAME(.fini_array.*))
  *(.fini_array*)
- .fini_array    0x080005f0        0x4 C:/ST/STM32CubeIDE_2.2.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v6-m/nofp/crtbegin.o
+ .fini_array    0x080001e4        0x4 C:/ST/STM32CubeIDE_2.2.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v6-m/nofp/crtbegin.o
                 [!provide]                        PROVIDE (__fini_array_end = .)
-                0x080005f4                        . = ALIGN (0x4)
-                0x080005f4                        _sidata = LOADADDR (.data)
+                0x080001e8                        . = ALIGN (0x4)
+                0x080001e8                        _sidata = LOADADDR (.data)
 
-.rel.dyn        0x080005f4        0x0
- .rel.iplt      0x080005f4        0x0 C:/ST/STM32CubeIDE_2.2.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v6-m/nofp/crtbegin.o
+.rel.dyn        0x080001e8        0x0
+ .rel.iplt      0x080001e8        0x0 C:/ST/STM32CubeIDE_2.2.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v6-m/nofp/crtbegin.o
 
-.data           0x20000000        0x0 load address 0x080005f4
+.data           0x20000000        0x0 load address 0x080001e8
                 0x20000000                        . = ALIGN (0x4)
                 0x20000000                        _sdata = .
  *(.data)
@@ -521,11 +530,11 @@ LOAD C:/ST/STM32CubeIDE_2.2.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.exte
                 0x20000000                        . = ALIGN (0x4)
                 0x20000000                        _edata = .
 
-.igot.plt       0x20000000        0x0 load address 0x080005f4
+.igot.plt       0x20000000        0x0 load address 0x080001e8
  .igot.plt      0x20000000        0x0 C:/ST/STM32CubeIDE_2.2.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v6-m/nofp/crtbegin.o
                 0x20000000                        . = ALIGN (0x4)
 
-.bss            0x20000000       0x1c load address 0x080005f4
+.bss            0x20000000       0x1c load address 0x080001e8
                 0x20000000                        _sbss = .
                 0x20000000                        __bss_start__ = _sbss
  *(.bss)
@@ -537,7 +546,7 @@ LOAD C:/ST/STM32CubeIDE_2.2.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.exte
                 0x2000001c                        __bss_end__ = _ebss
 
 ._user_heap_stack
-                0x2000001c      0x604 load address 0x080005f4
+                0x2000001c      0x604 load address 0x080001e8
                 0x20000020                        . = ALIGN (0x8)
  *fill*         0x2000001c        0x4 
                 [!provide]                        PROVIDE (end = .)
@@ -567,49 +576,53 @@ LOAD C:/ST/STM32CubeIDE_2.2.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.exte
  .ARM.attributes
                 0x00000098       0x2c CMakeFiles/trt01.dir/Sources/main.c.obj
  .ARM.attributes
-                0x000000c4       0x1e C:/ST/STM32CubeIDE_2.2.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v6-m/nofp\libgcc.a(_divsi3.o)
+                0x000000c4       0x2c CMakeFiles/trt01.dir/Sources/program3.c.obj
  .ARM.attributes
-                0x000000e2       0x1e C:/ST/STM32CubeIDE_2.2.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v6-m/nofp\libgcc.a(_dvmd_tls.o)
- .ARM.attributes
-                0x00000100       0x1e C:/ST/STM32CubeIDE_2.2.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v6-m/nofp/crtn.o
+                0x000000f0       0x1e C:/ST/STM32CubeIDE_2.2.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v6-m/nofp/crtn.o
 OUTPUT(trt01.elf elf32-littlearm)
 LOAD linker stubs
 LOAD C:/ST/STM32CubeIDE_2.2.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp\libc.a
 LOAD C:/ST/STM32CubeIDE_2.2.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp\libm.a
 LOAD C:/ST/STM32CubeIDE_2.2.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v6-m/nofp\libgcc.a
 
-.debug_frame    0x00000000       0x9c
+.debug_frame    0x00000000       0xa0
  .debug_frame   0x00000000       0x2c C:/ST/STM32CubeIDE_2.2.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v6-m/nofp\libc_nano.a(libc_a-init.o)
- .debug_frame   0x0000002c       0x50 CMakeFiles/trt01.dir/Sources/main.c.obj
- .debug_frame   0x0000007c       0x20 C:/ST/STM32CubeIDE_2.2.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.14.3.rel1.win32_1.0.100.202602081740/tools/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v6-m/nofp\libgcc.a(_divsi3.o)
+ .debug_frame   0x0000002c       0x2c CMakeFiles/trt01.dir/Sources/main.c.obj
+ .debug_frame   0x00000058       0x48 CMakeFiles/trt01.dir/Sources/program3.c.obj
 
-.debug_line     0x00000000      0x3aa
+.debug_line     0x00000000      0x165
  .debug_line    0x00000000       0x7b CMakeFiles/trt01.dir/Startup/startup_stm32l073rztx.s.obj
- .debug_line    0x0000007b      0x32f CMakeFiles/trt01.dir/Sources/main.c.obj
+ .debug_line    0x0000007b       0x7b CMakeFiles/trt01.dir/Sources/main.c.obj
+ .debug_line    0x000000f6       0x6f CMakeFiles/trt01.dir/Sources/program3.c.obj
 
 .debug_line_str
-                0x00000000       0x72
+                0x00000000       0x7a
  .debug_line_str
-                0x00000000       0x72 CMakeFiles/trt01.dir/Startup/startup_stm32l073rztx.s.obj
+                0x00000000       0x7a CMakeFiles/trt01.dir/Startup/startup_stm32l073rztx.s.obj
 
-.debug_info     0x00000000      0x1aa
+.debug_info     0x00000000       0xc7
  .debug_info    0x00000000       0x30 CMakeFiles/trt01.dir/Startup/startup_stm32l073rztx.s.obj
- .debug_info    0x00000030      0x17a CMakeFiles/trt01.dir/Sources/main.c.obj
+ .debug_info    0x00000030       0x50 CMakeFiles/trt01.dir/Sources/main.c.obj
+ .debug_info    0x00000080       0x47 CMakeFiles/trt01.dir/Sources/program3.c.obj
 
-.debug_abbrev   0x00000000       0xc6
+.debug_abbrev   0x00000000       0xa2
  .debug_abbrev  0x00000000       0x24 CMakeFiles/trt01.dir/Startup/startup_stm32l073rztx.s.obj
- .debug_abbrev  0x00000024       0xa2 CMakeFiles/trt01.dir/Sources/main.c.obj
+ .debug_abbrev  0x00000024       0x4f CMakeFiles/trt01.dir/Sources/main.c.obj
+ .debug_abbrev  0x00000073       0x2f CMakeFiles/trt01.dir/Sources/program3.c.obj
 
-.debug_aranges  0x00000000       0x48
+.debug_aranges  0x00000000       0x68
  .debug_aranges
                 0x00000000       0x28 CMakeFiles/trt01.dir/Startup/startup_stm32l073rztx.s.obj
  .debug_aranges
                 0x00000028       0x20 CMakeFiles/trt01.dir/Sources/main.c.obj
+ .debug_aranges
+                0x00000048       0x20 CMakeFiles/trt01.dir/Sources/program3.c.obj
 
-.debug_str      0x00000000      0x1eb
- .debug_str     0x00000000      0x1eb CMakeFiles/trt01.dir/Startup/startup_stm32l073rztx.s.obj
-                                 0x8e (size before relaxing)
- .debug_str     0x000001eb      0x1df CMakeFiles/trt01.dir/Sources/main.c.obj
+.debug_str      0x00000000      0x186
+ .debug_str     0x00000000      0x186 CMakeFiles/trt01.dir/Startup/startup_stm32l073rztx.s.obj
+                                 0x96 (size before relaxing)
+ .debug_str     0x00000186       0xe3 CMakeFiles/trt01.dir/Sources/main.c.obj
+ .debug_str     0x00000186       0xe2 CMakeFiles/trt01.dir/Sources/program3.c.obj
 
 .debug_rnglists
                 0x00000000       0x19
@@ -619,3 +632,4 @@ LOAD C:/ST/STM32CubeIDE_2.2.0/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.exte
 .comment        0x00000000       0x43
  .comment       0x00000000       0x43 CMakeFiles/trt01.dir/Sources/main.c.obj
                                  0x44 (size before relaxing)
+ .comment       0x00000043       0x44 CMakeFiles/trt01.dir/Sources/program3.c.obj

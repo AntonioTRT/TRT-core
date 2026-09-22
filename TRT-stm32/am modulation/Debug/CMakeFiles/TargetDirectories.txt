@@ -1,3 +1,3 @@
-C:/Users/anton/STM32CubeIDE/new/trt01/Debug/CMakeFiles/trt01.dir
-C:/Users/anton/STM32CubeIDE/new/trt01/Debug/CMakeFiles/edit_cache.dir
-C:/Users/anton/STM32CubeIDE/new/trt01/Debug/CMakeFiles/rebuild_cache.dir
+D:/repos/TRT-core/TRT-stm32/am modulation/Debug/CMakeFiles/trt01.dir
+D:/repos/TRT-core/TRT-stm32/am modulation/Debug/CMakeFiles/edit_cache.dir
+D:/repos/TRT-core/TRT-stm32/am modulation/Debug/CMakeFiles/rebuild_cache.dir

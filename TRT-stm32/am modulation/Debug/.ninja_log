@@ -1,10 +1,22 @@
 # ninja log v7
-32	134	8105880307192653	CMakeFiles/trt01.dir/Startup/startup_stm32l073rztx.s.obj	955fa61b69a0f702
-41	220	8105880307272637	CMakeFiles/trt01.dir/Sources/main.c.obj	a9bc4aa4cee808d2
-57	313	8105880307446175	CMakeFiles/trt01.dir/Sources/sysmem.c.obj	3e5eabdac8e44425
-49	612	8105880307360387	CMakeFiles/trt01.dir/Sources/syscalls.c.obj	c767a69266a6edbb
-613	976	8105880312995049	trt01.elf	237ff951b8236d89
-3	118	8105891537548087	CMakeFiles/trt01.dir/Sources/main.c.obj	a9bc4aa4cee808d2
-118	290	8105891538690552	trt01.elf	237ff951b8236d89
-24	128	8105893442455160	CMakeFiles/trt01.dir/Sources/main.c.obj	a9bc4aa4cee808d2
-132	302	8105893443536026	trt01.elf	237ff951b8236d89
+22	63	8106824227705383	D:/repos/TRT-core/TRT-stm32/am modulation/Debug/CMakeFiles/cmake.verify_globs	fccf5941e1fceb02
+64	149	8106824228130791	CMakeFiles/trt01.dir/Startup/startup_stm32l073rztx.s.obj	e9c726e172643424
+75	176	8106824228250899	CMakeFiles/trt01.dir/Sources/program1.c.obj	50f1dff75e8d6392
+87	176	8106824228358919	CMakeFiles/trt01.dir/Sources/program3.c.obj	b991dc5f38e2dcb3
+70	182	8106824228190892	CMakeFiles/trt01.dir/Sources/main.c.obj	38c24803ba9a1bd3
+81	196	8106824228294592	CMakeFiles/trt01.dir/Sources/program2.c.obj	dead7c91fd0e373e
+97	348	8106824228468956	CMakeFiles/trt01.dir/Sources/sysmem.c.obj	f68ff24c0b0f7aa3
+92	612	8106824228408926	CMakeFiles/trt01.dir/Sources/syscalls.c.obj	21b3e7824f6520bf
+613	764	8106824233622062	trt01.elf	faf955d8599fd06e
+74	113	8118011076805729	D:/repos/TRT-core/TRT-stm32/am modulation/Debug/CMakeFiles/cmake.verify_globs	fccf5941e1fceb02
+197	664	8118011078035472	CMakeFiles/trt01.dir/Sources/program1.c.obj	50f1dff75e8d6392
+116	664	8118011077236380	CMakeFiles/trt01.dir/Sources/main.c.obj	38c24803ba9a1bd3
+214	664	8118011078214453	CMakeFiles/trt01.dir/Sources/program3.c.obj	b991dc5f38e2dcb3
+206	665	8118011078132176	CMakeFiles/trt01.dir/Sources/program2.c.obj	dead7c91fd0e373e
+665	1498	8118011082719214	trt01.elf	faf955d8599fd06e
+30	59	8118026613498403	D:/repos/TRT-core/TRT-stm32/am modulation/Debug/CMakeFiles/cmake.verify_globs	fccf5941e1fceb02
+67	221	8118026613862723	CMakeFiles/trt01.dir/Sources/program1.c.obj	50f1dff75e8d6392
+73	221	8118026613923186	CMakeFiles/trt01.dir/Sources/program2.c.obj	dead7c91fd0e373e
+60	222	8118026613791656	CMakeFiles/trt01.dir/Sources/main.c.obj	38c24803ba9a1bd3
+80	222	8118026613987325	CMakeFiles/trt01.dir/Sources/program3.c.obj	b991dc5f38e2dcb3
+222	400	8118026615410133	trt01.elf	faf955d8599fd06e
