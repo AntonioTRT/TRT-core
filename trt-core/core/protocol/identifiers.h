@@ -45,6 +45,15 @@ enum class StatusCode : uint8_t {
 
 enum class CapabilityId : uint16_t {
     kSystem = 0x0001,
+    kGpio = 0x0002,
+    kPwm = 0x0003,
+    kAdc = 0x0004,
+    kDac = 0x0005,
+    kSpi = 0x0006,
+    kI2c = 0x0007,
+    kLcd = 0x0008,
+    kLed = 0x0009,
+    kRelay = 0x000A,
 };
 
 }  // namespace protocol

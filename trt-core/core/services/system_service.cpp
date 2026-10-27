@@ -18,6 +18,24 @@ namespace {
 using trt::core::dispatcher::CommandResult;
 using trt::core::errors::ErrorCode;
 
+bool capability_identifier(trt::core::capabilities::Capability capability, uint16_t& identifier) {
+    using trt::core::capabilities::Capability;
+    using trt::core::protocol::CapabilityId;
+    switch (capability) {
+        case Capability::kSystem: identifier = static_cast<uint16_t>(CapabilityId::kSystem); return true;
+        case Capability::kGpio: identifier = static_cast<uint16_t>(CapabilityId::kGpio); return true;
+        case Capability::kPwm: identifier = static_cast<uint16_t>(CapabilityId::kPwm); return true;
+        case Capability::kAdc: identifier = static_cast<uint16_t>(CapabilityId::kAdc); return true;
+        case Capability::kDac: identifier = static_cast<uint16_t>(CapabilityId::kDac); return true;
+        case Capability::kSpi: identifier = static_cast<uint16_t>(CapabilityId::kSpi); return true;
+        case Capability::kI2c: identifier = static_cast<uint16_t>(CapabilityId::kI2c); return true;
+        case Capability::kLcd: identifier = static_cast<uint16_t>(CapabilityId::kLcd); return true;
+        case Capability::kLed: identifier = static_cast<uint16_t>(CapabilityId::kLed); return true;
+        case Capability::kRelay: identifier = static_cast<uint16_t>(CapabilityId::kRelay); return true;
+    }
+    return false;
+}
+
 #if TRT_HAS_STL
 bool parse_firmware_version(const std::string& value, std::array<uint8_t, 3>& version) {
     std::size_t offset = 0;
@@ -90,8 +108,9 @@ CommandResult get_capabilities(const trt::core::protocol::Frame&, trt::core::boa
 #if TRT_HAS_STL
     std::vector<uint16_t> identifiers;
     for (const auto capability : context.capabilities().all()) {
-        if (capability == trt::core::capabilities::Capability::kSystem) {
-            identifiers.push_back(static_cast<uint16_t>(trt::core::protocol::CapabilityId::kSystem));
+        uint16_t identifier = 0;
+        if (capability_identifier(capability, identifier)) {
+            identifiers.push_back(identifier);
         }
     }
     std::sort(identifiers.begin(), identifiers.end());
@@ -104,14 +123,31 @@ CommandResult get_capabilities(const trt::core::protocol::Frame&, trt::core::boa
     return {ErrorCode::kNone, static_cast<uint16_t>(trt::core::protocol::ResponseId::kData), std::move(payload)};
 #else
     CommandResult result;
-    result.payload[0] = context.capabilities().supports(trt::core::capabilities::Capability::kSystem) ? 1 : 0;
-    if (result.payload[0] != 0) {
-        result.payload[1] = 0;
-        result.payload[2] = static_cast<uint8_t>(trt::core::protocol::CapabilityId::kSystem);
-        result.payload_length = 3;
-    } else {
-        result.payload_length = 1;
+    constexpr trt::core::capabilities::Capability capabilities[] = {
+        trt::core::capabilities::Capability::kSystem,
+        trt::core::capabilities::Capability::kGpio,
+        trt::core::capabilities::Capability::kPwm,
+        trt::core::capabilities::Capability::kAdc,
+        trt::core::capabilities::Capability::kDac,
+        trt::core::capabilities::Capability::kSpi,
+        trt::core::capabilities::Capability::kI2c,
+        trt::core::capabilities::Capability::kLcd,
+        trt::core::capabilities::Capability::kLed,
+        trt::core::capabilities::Capability::kRelay,
+    };
+    uint8_t count = 0;
+    for (const auto capability : capabilities) {
+        uint16_t identifier = 0;
+        if (context.capabilities().supports(capability) &&
+            capability_identifier(capability, identifier)) {
+            const uint8_t offset = static_cast<uint8_t>(1U + count * 2U);
+            result.payload[offset] = static_cast<uint8_t>((identifier >> 8U) & 0xFFU);
+            result.payload[offset + 1U] = static_cast<uint8_t>(identifier & 0xFFU);
+            ++count;
+        }
     }
+    result.payload[0] = count;
+    result.payload_length = static_cast<uint16_t>(1U + count * 2U);
     return result;
 #endif
 }

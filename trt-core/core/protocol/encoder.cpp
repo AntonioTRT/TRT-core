@@ -2,10 +2,12 @@
 
 namespace {
 
+#if !TRT_HAS_STL
 void write_u16_be(uint8_t* raw, size_t offset, uint16_t value) {
     raw[offset] = static_cast<uint8_t>((value >> 8U) & 0xFFU);
     raw[offset + 1] = static_cast<uint8_t>(value & 0xFFU);
 }
+#endif
 
 #if TRT_HAS_STL
 void write_u16_be(std::vector<uint8_t>& raw, uint16_t value) {

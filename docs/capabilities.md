@@ -28,6 +28,25 @@ Command handlers and runtime services query capability support through `Capabili
 
 No board-specific type checks are needed in core dispatch logic.
 
+The V0.1 `CAPABILITIES` response uses a count byte followed by big-endian
+uint16 identifiers. The identifiers are stable and map to the declared
+capability families:
+
+| Identifier | Capability |
+|---|---|
+| `0x0001` | SYSTEM |
+| `0x0002` | GPIO |
+| `0x0003` | PWM |
+| `0x0004` | ADC |
+| `0x0005` | DAC |
+| `0x0006` | SPI |
+| `0x0007` | I2C |
+| `0x0008` | LCD |
+| `0x0009` | LED |
+| `0x000A` | RELAY |
+
+Only capabilities registered by the board are included in the response.
+
 ## Unsupported Behavior
 
 If a command requires a capability not present on the active board context, the command path must return:
