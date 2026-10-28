@@ -112,8 +112,8 @@ void Runtime::register_handlers() {
                                [](const core::protocol::Frame&, core::board::BoardContext&) {
                                    return core::dispatcher::CommandResult{
                                        core::errors::ErrorCode::kNone,
-                                       static_cast<uint16_t>(ResponseId::kData),
-                                       {'P', 'O', 'N', 'G'}};
+                                       static_cast<uint16_t>(ResponseId::kAck),
+                                       {}};
                                });
     core::services::SystemService{}.register_commands(registry_);
     registry_.register_handler(static_cast<uint16_t>(CommandId::kInfo),
@@ -152,11 +152,6 @@ void Runtime::process_commands() {
 }
 
 void Runtime::update_state_machine() {
-    const uint32_t now = HAL_GetTick();
-    if (static_cast<uint32_t>(now - last_led_toggle_) >= 500U) {
-        HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
-        last_led_toggle_ = now;
-    }
 }
 
 void Runtime::transmit_pending_messages() {

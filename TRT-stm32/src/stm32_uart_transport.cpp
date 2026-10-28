@@ -1,5 +1,24 @@
 #include "stm32_uart_transport.h"
 
+namespace {
+
+void clear_uart_errors(UART_HandleTypeDef& uart) {
+    if (__HAL_UART_GET_FLAG(&uart, UART_FLAG_ORE) == SET) {
+        __HAL_UART_CLEAR_OREFLAG(&uart);
+    }
+    if (__HAL_UART_GET_FLAG(&uart, UART_FLAG_NE) == SET) {
+        __HAL_UART_CLEAR_NEFLAG(&uart);
+    }
+    if (__HAL_UART_GET_FLAG(&uart, UART_FLAG_FE) == SET) {
+        __HAL_UART_CLEAR_FEFLAG(&uart);
+    }
+    if (__HAL_UART_GET_FLAG(&uart, UART_FLAG_PE) == SET) {
+        __HAL_UART_CLEAR_PEFLAG(&uart);
+    }
+}
+
+}  // namespace
+
 namespace trt {
 namespace stm32 {
 
@@ -61,12 +80,14 @@ void UartTransport::poll_receive() {
 
     for (uint8_t count = 0; count < 32; ++count) {
         uint8_t byte = 0;
+        clear_uart_errors(uart_);
         const HAL_StatusTypeDef result = HAL_UART_Receive(&uart_, &byte, 1, 0);
         if (result == HAL_TIMEOUT || result == HAL_BUSY) {
             break;
         }
         if (result != HAL_OK) {
             dropped_bytes_ = true;
+            clear_uart_errors(uart_);
             break;
         }
 
@@ -95,6 +116,7 @@ void UartTransport::poll_transmit() {
     const uint16_t length = head > tail
                                 ? static_cast<uint16_t>(head - tail)
                                 : static_cast<uint16_t>(kBufferSize - tail);
+    clear_uart_errors(uart_);
     tx_pending_length_ = length;
     tx_in_flight_ = true;
     if (HAL_UART_Transmit_IT(&uart_, &tx_buffer_[tail], length) != HAL_OK) {
@@ -114,6 +136,7 @@ void UartTransport::notify_transmit_complete() {
 }
 
 void UartTransport::notify_uart_error() {
+    clear_uart_errors(uart_);
     tx_pending_length_ = 0;
     tx_in_flight_ = false;
     dropped_bytes_ = true;

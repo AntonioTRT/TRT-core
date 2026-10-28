@@ -52,7 +52,6 @@ class Runtime {
     size_t command_tail_ = 0;
     size_t command_count_ = 0;
     bool queue_overflow_ = false;
-    uint32_t last_led_toggle_ = 0;
 };
 
 }  // namespace stm32
